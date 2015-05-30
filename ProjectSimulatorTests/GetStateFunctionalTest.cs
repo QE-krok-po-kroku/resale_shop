@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using NUnit.Framework;
 using ProjectSimulator;
 using ProjectSimulator.Models;
+using System.Net.Http;
 
 namespace ProjectSimulatorTests
 {
@@ -45,6 +46,26 @@ namespace ProjectSimulatorTests
             Assert.That(dto.Imei, Is.EqualTo("11112222233333/01"));
         }
 
-       
+        [Test]
+        public void WebApiPostPhoneTest()
+        {
+            var phone = new Phone
+            {
+                Brand = "Samsung",
+                Imei = "111113432",
+                Model = "Galaxy Mini",
+                Year = 2011,
+                State ="good"
+            };
+
+            var content = new StringContent(JsonConvert.SerializeObject(phone));
+            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+            var response = server.HttpClient.PostAsync("api/resaleshop/phones",content).Result;
+
+            var result = response.Content.ReadAsStringAsync().Result;
+            var dtos = JsonConvert.DeserializeObject<Count>(result);
+
+            Assert.That(dtos.PhonesCount, Is.EqualTo(2));
+        }
     }
 }
