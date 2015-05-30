@@ -30,8 +30,15 @@ namespace ProjectSimulator.Controllers
             {
                 if (IsValid(phone))
                 {
-                    phone.State = phone.State.ToUpper();
-                    _dao.AddPhone(phone);
+                    try
+                    {
+                        phone.State = phone.State.ToUpper();
+                        _dao.AddPhone(phone);
+                    }
+                    catch (System.Exception ex)
+                    {
+                        //TODO wyjasnic z klientem 
+                    }
                 }
                     
             }

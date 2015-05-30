@@ -83,5 +83,16 @@ namespace ProjectSimulatorTests
 
             Assert.That(dtos.PhonesCount, Is.EqualTo(2));
         }
+
+        [Test]
+        public void WebApiGetCountTest()
+        {
+            var response = server.HttpClient.GetAsync("api/resaleshop/phonescount").Result;
+
+            var result = response.Content.ReadAsStringAsync().Result;
+            var dtos = JsonConvert.DeserializeObject<Count>(result);
+
+            Assert.That(dtos.PhonesCount, Is.EqualTo(1));            
+        }
     }
 }
