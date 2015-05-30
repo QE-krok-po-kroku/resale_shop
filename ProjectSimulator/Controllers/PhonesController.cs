@@ -18,18 +18,33 @@ namespace ProjectSimulator.Controllers
         [HttpGet]
         public IEnumerable<Phone> GetPhones()
         {
-            //TODO: Sprint 2
-            return new List<Phone>();
+            return _dao.GetPhones().Where(p => p.State != "very_bad");
         }
 
         //TODO: Sprint 1
-                [Route("")]
-                [HttpPost]
-                public HttpResponseMessage Post([FromBody] Phone phone)
-                {
+        [Route("")]
+        [HttpPost]
+        public HttpResponseMessage Post([FromBody] List<Phone> phones)
+        {
+            foreach (var phone in phones)
+            {
+                if(IsValid(phone))
                     _dao.AddPhone(phone);
-                    var count = _dao.GetPhones().Count();
-                    return Request.CreateResponse(HttpStatusCode.Created, new Count() { PhonesCount = count});
-                }
+            }
+            var count = _dao.GetPhones().Count();
+            return Request.CreateResponse(HttpStatusCode.Created, new Count() { PhonesCount = count });
+        }
+
+        private bool IsValid(Phone phone)
+        {
+            return _allwedStatuses.Any(s => s == phone.State.ToUpper());
+        }
+
+        private IList<string> _allwedStatuses = new List<string>
+        {
+            "NEW",
+            "GOOD",
+            "BAD"
+        };
     }
 }

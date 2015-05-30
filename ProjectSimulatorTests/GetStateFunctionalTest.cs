@@ -49,7 +49,7 @@ namespace ProjectSimulatorTests
         [Test]
         public void WebApiPostPhoneTest()
         {
-            var phone = new Phone
+            var phone1 = new Phone
             {
                 Brand = "Samsung",
                 Imei = "111113432",
@@ -58,7 +58,16 @@ namespace ProjectSimulatorTests
                 State ="good"
             };
 
-            var content = new StringContent(JsonConvert.SerializeObject(phone));
+            var phone2 = new Phone
+            {
+                Brand = "Samsung 2",
+                Imei = "11dsfs1113432",
+                Model = "Galaxy Mini",
+                Year = 2011,
+                State = "very bad"
+            };
+
+            var content = new StringContent(JsonConvert.SerializeObject(new List<Phone> { phone1,phone2}));
             content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
             var response = server.HttpClient.PostAsync("api/resaleshop/phones",content).Result;
 
