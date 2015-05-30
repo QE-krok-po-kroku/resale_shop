@@ -26,29 +26,26 @@ namespace ProjectSimulator.Controllers
         [HttpPost]
         public HttpResponseMessage Post([FromBody] List<Phone> phones)
         {
-            foreach (var phone in phones)
+            var validPhones = phones.Where(p => IsValid(p)).ToList();
+            foreach (var phone in validPhones)
             {
-                if (IsValid(phone))
-                {
-                    try
-                    {
-                        phone.State = phone.State.ToUpper();
-                        _dao.AddPhone(phone);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        //TODO wyjasnic z klientem 
-                    }
-                }
-                    
+                phone.State = phone.State.ToUpper();
+                _dao.AddPhone(phone);                    
             }
+            if (validPhones.Count() == 0)
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+
             var count = _dao.GetValidPhones().Count();
             return Request.CreateResponse(HttpStatusCode.Created, new Count() { PhonesCount = count });
         }
 
         private bool IsValid(Phone phone)
         {
-            return AllowedPhone.Statuses.Any(s => s == phone.State.ToUpper());
+            return AllowedPhone.Statuses.Any(s => s == phone.State.ToUpper())
+                && !_dao.PhoneExists(phone.Imei) && !string.IsNullOrEmpty(phone.Imei);
         }       
+
+    
+
     }
 }

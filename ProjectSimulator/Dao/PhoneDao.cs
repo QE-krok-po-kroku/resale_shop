@@ -29,5 +29,10 @@ namespace ProjectSimulator.Dao
         {
             _db.Database.Initialize(true);
         }
+
+        public bool PhoneExists(string imei)
+        {
+            return _db.Phones.Any(p => p.Imei == imei);
+        }
     }
 }

@@ -77,8 +77,9 @@ namespace ProjectSimulatorTests
             var content = new StringContent(JsonConvert.SerializeObject(new List<Phone> { phone1,phone2}));
             content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
             var response = server.HttpClient.PostAsync("api/resaleshop/phones",content).Result;
-
+            
             var result = response.Content.ReadAsStringAsync().Result;
+            
             var dtos = JsonConvert.DeserializeObject<Count>(result);
 
             Assert.That(dtos.PhonesCount, Is.EqualTo(2));
