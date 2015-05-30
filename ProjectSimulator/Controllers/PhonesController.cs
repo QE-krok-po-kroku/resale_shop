@@ -43,9 +43,6 @@ namespace ProjectSimulator.Controllers
         {
             return AllowedPhone.Statuses.Any(s => s == phone.State.ToUpper())
                 && !_dao.PhoneExists(phone.Imei) && !string.IsNullOrEmpty(phone.Imei);
-        }       
-
-    
-
+        }           
     }
 }

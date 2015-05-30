@@ -16,7 +16,12 @@ namespace ProjectSimulator.Dao
 
         public IEnumerable<Phone> GetValidPhones()
         {
-            return _db.Phones.Where(p => AllowedPhone.Statuses.Any(s => s == p.State.ToUpper()));
+            return _db.Phones.Where(IsValidStatus());
+        }
+
+        private static System.Linq.Expressions.Expression<System.Func<Phone, bool>> IsValidStatus()
+        {
+            return p => AllowedPhone.Statuses.Any(s => s == p.State.ToUpper());
         }
 
         public void AddPhone(Phone phone)
