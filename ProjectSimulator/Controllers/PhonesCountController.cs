@@ -1,6 +1,7 @@
 ﻿using System.Web.Http;
 using ProjectSimulator.Dao;
 using ProjectSimulator.Models;
+using System.Linq;
 
 namespace ProjectSimulator.Controllers
 {
@@ -13,8 +14,8 @@ namespace ProjectSimulator.Controllers
         [HttpGet]
         public Count GetPhonesCount()
         {
-            //TODO: Sprint 3
-            return new Count() {PhonesCount = 0};
+            var count = _dao.GetValidPhones().Count();
+            return new Count() {PhonesCount = count};
         }
     }
 }
