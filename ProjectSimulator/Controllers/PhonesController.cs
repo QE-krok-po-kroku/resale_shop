@@ -18,7 +18,7 @@ namespace ProjectSimulator.Controllers
         [HttpGet]
         public IEnumerable<Phone> GetPhones()
         {
-            return _dao.GetPhones().Where(p => p.State != "very_bad");
+            return _dao.GetPhones().Where(p => AllowedPhone.Statuses.Any(s => s == p.State));
         }
 
         //TODO: Sprint 1
@@ -37,14 +37,7 @@ namespace ProjectSimulator.Controllers
 
         private bool IsValid(Phone phone)
         {
-            return _allwedStatuses.Any(s => s == phone.State.ToUpper());
-        }
-
-        private IList<string> _allwedStatuses = new List<string>
-        {
-            "NEW",
-            "GOOD",
-            "BAD"
-        };
+            return AllowedPhone.Statuses.Any(s => s == phone.State.ToUpper());
+        }       
     }
 }

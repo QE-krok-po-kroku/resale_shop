@@ -47,7 +47,7 @@ namespace ProjectSimulatorTests
         }
 
         [Test]
-        public void WebApiPostPhoneTest()
+        public void WebApiPostPhonesTest()
         {
             var phone1 = new Phone
             {
