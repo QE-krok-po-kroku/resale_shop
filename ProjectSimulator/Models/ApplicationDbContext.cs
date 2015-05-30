@@ -23,7 +23,7 @@ namespace ProjectSimulator.Models
                     Model = "Galaxy Mini",
                     Brand = "Samsung",
                     Year = 2011,
-                    State = "bad"
+                    State = "BAD"
                 },
                 new Phone
                 {
@@ -31,7 +31,7 @@ namespace ProjectSimulator.Models
                     Model = "One",
                     Brand = "HTC",
                     Year = 2010,
-                    State = "very_bad"
+                    State = "VERY_BAD"
                 }
             };
 
