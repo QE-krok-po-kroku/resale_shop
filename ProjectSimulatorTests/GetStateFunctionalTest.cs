@@ -39,11 +39,7 @@ namespace ProjectSimulatorTests
 
             var result = response.Content.ReadAsStringAsync().Result;
             var dtos = JsonConvert.DeserializeObject<List<PhoneDto>>(result);
-
-            Assert.That(dtos.Count, Is.EqualTo(1));
-            PhoneDto dto = dtos.First();
-            Assert.That(dto.State, Is.EqualTo("good"));
-            Assert.That(dto.Imei, Is.EqualTo("11112222233333/01"));
+            Assert.That(dtos.Count, Is.EqualTo(0));
         }
 
         [Test]
@@ -93,7 +89,7 @@ namespace ProjectSimulatorTests
             var result = response.Content.ReadAsStringAsync().Result;
             var dtos = JsonConvert.DeserializeObject<Count>(result);
 
-            Assert.That(dtos.PhonesCount, Is.EqualTo(1));            
+            Assert.That(dtos.PhonesCount, Is.EqualTo(0));            
         }
     }
 }

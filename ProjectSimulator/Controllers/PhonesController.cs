@@ -6,6 +6,7 @@ using System.Web.Http;
 using Newtonsoft.Json;
 using ProjectSimulator.Models;
 using ProjectSimulator.Dao;
+using System;
 
 namespace ProjectSimulator.Controllers
 {
@@ -18,7 +19,12 @@ namespace ProjectSimulator.Controllers
         [HttpGet]
         public IEnumerable<Phone> GetPhones()
         {
-            return _dao.GetValidPhones();
+            IEnumerable<Phone> phoneList = _dao.GetValidPhones();
+            foreach (Phone item in phoneList)
+            {
+                item.State = item.State.ToLower();
+            }
+            return phoneList;
         }
 
         //TODO: Sprint 1
@@ -30,7 +36,7 @@ namespace ProjectSimulator.Controllers
             foreach (var phone in validPhones)
             {
                 phone.State = phone.State.ToUpper();
-                _dao.AddPhone(phone);                    
+                _dao.AddPhone(phone);
             }
             if (validPhones.Count() == 0)
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
@@ -43,7 +49,7 @@ namespace ProjectSimulator.Controllers
         {
             return AllowedPhone.Statuses.Any(s => s == phone.State.ToUpper())
                 && !_dao.PhoneExists(phone.Imei) && !string.IsNullOrEmpty(phone.Imei);
-        }           
+        }
 
     }
 }
