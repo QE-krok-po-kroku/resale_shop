@@ -16,7 +16,14 @@ namespace ProjectSimulator.Controllers
         [HttpGet]
         public IEnumerable<PhoneDto> GetPhonesState()
         {
-            return PhoneToPhoneDto.Convert(_dao.GetPhones().ToList());
+            return PhoneToPhoneDto.Convert(_dao.GetPhones().Where(p => IsValid(p)).ToList());
         }
+
+        private bool IsValid(Phone phone)
+        {
+            return AllowedPhone.Statuses.Any(s => s == phone.State.ToUpper())
+                && !_dao.PhoneExists(phone.Imei) && !string.IsNullOrEmpty(phone.Imei);
+        }           
+
     }
 }

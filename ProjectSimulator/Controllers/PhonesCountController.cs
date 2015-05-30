@@ -14,8 +14,14 @@ namespace ProjectSimulator.Controllers
         [HttpGet]
         public Count GetPhonesCount()
         {
-            var count = _dao.GetValidPhones().Count();
+            var count = _dao.GetValidPhones().Where(p => IsValid(p)).ToList().Count();
             return new Count() {PhonesCount = count};
         }
+
+        private bool IsValid(Phone phone)
+        {
+            return AllowedPhone.Statuses.Any(s => s == phone.State.ToUpper())
+                && !_dao.PhoneExists(phone.Imei) && !string.IsNullOrEmpty(phone.Imei);
+        }           
     }
 }

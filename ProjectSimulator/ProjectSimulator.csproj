@@ -110,6 +110,7 @@
     <Compile Include="Controllers\PhonesStateController.cs" />
     <Compile Include="Controllers\UtilityController.cs" />
     <Compile Include="Dao\PhoneDao.cs" />
+    <Compile Include="Dao\PhoneDetailsDto.cs" />
     <Compile Include="Models\PhoneDto.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\Phone.cs" />
@@ -117,6 +118,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utils\PhoneToPhoneDetailsDto.cs" />
     <Compile Include="Utils\PhoneToPhoneDto.cs" />
   </ItemGroup>
   <ItemGroup>

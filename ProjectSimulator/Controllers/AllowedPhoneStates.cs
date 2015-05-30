@@ -11,8 +11,7 @@ namespace ProjectSimulator.Controllers
         public static IList<string> Statuses = new List<string>
         {
             "NEW",
-            "GOOD",
-            "BAD"
+            "GOOD"
         };
     }
 }
