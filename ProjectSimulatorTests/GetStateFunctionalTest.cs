@@ -49,6 +49,13 @@ namespace ProjectSimulatorTests
         [Test]
         public void WebApiPostPhonesTest()
         {
+            var getResponse = server.HttpClient.GetAsync("api/resaleshop/phones").Result;
+
+            var getResult = getResponse.Content.ReadAsStringAsync().Result;
+            var getDtos = JsonConvert.DeserializeObject<List<Phone>>(getResult);
+
+            Assert.That(getDtos.Count, Is.EqualTo(1));
+
             var phone1 = new Phone
             {
                 Brand = "Samsung",

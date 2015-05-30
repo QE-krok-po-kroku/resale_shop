@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using ProjectSimulator.Models;
+using System.Linq;
+using ProjectSimulator.Controllers;
 
 namespace ProjectSimulator.Dao
 {
@@ -10,6 +12,11 @@ namespace ProjectSimulator.Dao
         public IEnumerable<Phone> GetPhones()
         {
             return _db.Phones;
+        }
+
+        public IEnumerable<Phone> GetValidPhones()
+        {
+            return _db.Phones.Where(p => AllowedPhone.Statuses.Any(s => s == p.State.ToUpper()));
         }
 
         public void AddPhone(Phone phone)

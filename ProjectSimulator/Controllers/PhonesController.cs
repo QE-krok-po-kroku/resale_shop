@@ -18,7 +18,7 @@ namespace ProjectSimulator.Controllers
         [HttpGet]
         public IEnumerable<Phone> GetPhones()
         {
-            return _dao.GetPhones().Where(p => AllowedPhone.Statuses.Any(s => s == p.State.ToUpper()));
+            return _dao.GetValidPhones();
         }
 
         //TODO: Sprint 1
@@ -35,7 +35,7 @@ namespace ProjectSimulator.Controllers
                 }
                     
             }
-            var count = _dao.GetPhones().Count();
+            var count = _dao.GetValidPhones().Count();
             return Request.CreateResponse(HttpStatusCode.Created, new Count() { PhonesCount = count });
         }
 
