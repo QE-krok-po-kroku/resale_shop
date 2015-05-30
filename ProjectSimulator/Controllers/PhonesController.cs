@@ -22,12 +22,14 @@ namespace ProjectSimulator.Controllers
             return new List<Phone>();
         }
 
-//TODO: Sprint 1
-//        [Route("")]
-//        [HttpPost]
-//        public HttpResponseMessage Post([FromBody] /* type variable */)
-//        {
-//            return Request.CreateResponse(HttpStatusCode.Created, new Count() { PhonesCount = 0});
-//        }
+        //TODO: Sprint 1
+                [Route("")]
+                [HttpPost]
+                public HttpResponseMessage Post([FromBody] Phone phone)
+                {
+                    _dao.AddPhone(phone);
+                    var count = _dao.GetPhones().Count();
+                    return Request.CreateResponse(HttpStatusCode.Created, new Count() { PhonesCount = count});
+                }
     }
 }

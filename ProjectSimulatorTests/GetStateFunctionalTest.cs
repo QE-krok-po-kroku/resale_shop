@@ -44,5 +44,7 @@ namespace ProjectSimulatorTests
             Assert.That(dto.State, Is.EqualTo("good"));
             Assert.That(dto.Imei, Is.EqualTo("11112222233333/01"));
         }
+
+       
     }
 }
